@@ -10,10 +10,10 @@ usage: fab add_slaves:no_of_slaves=1 launch
 
 import webbrowser
 
-from fabric.api import *
-
-from aws import *
-
+from fabric.api import run, sudo, env, task, execute, put
+from aws import get_or_create_key_pair, get_or_create_security_group, \
+    get_master_dns_ip, create_master, get_slave_dns_list, create_slaves, \
+    NO_OF_SLAVES, SLAVE_INSTANCES
 
 env.user = 'ubuntu'
 env.timeout = 60
@@ -103,7 +103,7 @@ def deploy_slaves():
         slave_list = get_slave_dns_list()
         if NO_OF_SLAVES - len(slave_list) > 0:
             print 'Found {0} existing slaves creating {1} new slaves'.format(len(slave_list),
-                                                                            NO_OF_SLAVES - len(slave_list))
+                                                                             NO_OF_SLAVES - len(slave_list))
             create_slaves(NO_OF_SLAVES - len(slave_list))
             host_list = [slave.public_dns_name for slave in SLAVE_INSTANCES.itervalues()] + slave_list
         else:

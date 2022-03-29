@@ -10,7 +10,7 @@ greenlet==0.4.5
 itsdangerous==0.24
 locustio==0.7.2
 msgpack-python==0.4.2
-paramiko==1.15.1
+paramiko==2.10.1
 pycrypto==2.6.1
 requests==2.4.3
 wsgiref==0.1.2
